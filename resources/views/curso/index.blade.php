@@ -56,36 +56,47 @@
                         </tr>
                     </thead>
                     <tbody>
+    @forelse ($cursos as $curso)
+        <tr>
+            <td>{{ $curso->nome }}</td>
+            <td>{{ $curso->descricao }}</td>
+            <td>{{ \Carbon\Carbon::parse($curso->dt_cadastro)->format('d/m/Y') }}</td>
+            <td>
+                @if ($curso->status)
+                    <span class="badge bg-success">Ativo</span>
+                @else
+                    <span class="badge bg-danger">Inativo</span>
+                @endif
+            </td>
+            <td class="text-center">
+                <a href="{{ route('curso.show', $curso->id) }}">
+                    <x-bx-detail width="30" />
+                </a>
 
-                        <tr>
-                            <td>Curso de Matemática</td>
-                            <td>Curso de Matemática para iniciantes</td>
-                            <td>06/09/2025</td>
-                            <td>
-                                <span class="badge bg-success">Ativo</span>
-                            </td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-primary">View</button>
-                                <button class="btn btn-sm btn-warning">Edit</button>
-                                <button class="btn btn-sm btn-danger">Delete</button>
-                            </td>
-                        </tr>
+                <a href="{{ route('curso.edit', $curso->id) }}">
+                    <x-jam-write width="30" />
+                </a>
 
-                        <tr>
-                            <td>Curso de Português</td>
-                            <td>Introdução à gramática</td>
-                            <td>10/09/2025</td>
-                            <td>
-                                <span class="badge bg-success">Ativo</span>
-                            </td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-primary">View</button>
-                                <button class="btn btn-sm btn-warning">Edit</button>
-                                <button class="btn btn-sm btn-danger">Delete</button>
-                            </td>
-                        </tr>
+                <form action="{{ route('curso.destroy', $curso->id) }}"
+                      method="POST"
+                      class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-link p-0">
+                        <x-gmdi-delete width="30" />
+                    </button>
+                </form>
+            </td>
+        </tr>
+    @empty
+        <tr>
+            <td colspan="5" class="text-center text-muted">
+                Nenhum curso encontrado
+            </td>
+        </tr>
+    @endforelse
+</tbody>
 
-                    </tbody>
                 </table>
             </div>
         </div>
