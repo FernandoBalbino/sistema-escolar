@@ -99,6 +99,7 @@
 
                 </table>
             </div>
+            <div>{{ $cursos->links() }}</div>
         </div>
 
     </div>
