@@ -11,13 +11,17 @@ class CursoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(StoreCursoRequest $request)
+    public function index(Request $request)
     {
         //
 
-        $dados = $request->validated();
-        dd($dados);
-        $cursos = Curso::paginate(5);
+
+        $nome = !empty($request->query('nome')) ? $request->query('nome') : '';
+        $descricao = !empty($request->query('descricao')) ? $request->query('descricao') : '';
+        $status = strlen($request->query('status')) > 0 ? [$request->query('status')] : [0, 1];
+
+        $cursos = Curso::where('nome', 'like', "%$nome%")->
+            where('descricao', 'like', "%$descricao%")->whereIn('status', $status)->paginate(7);
 
         return view('curso.index', ['cursos' => $cursos]);
     }

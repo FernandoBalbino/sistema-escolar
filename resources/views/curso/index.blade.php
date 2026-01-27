@@ -27,9 +27,9 @@
                     <div class="col-md-2">
                         <label class="form-label">Status</label>
                         <select name="status" class="form-select">
-                            <option>-</option>
-                            <option>Ativo</option>
-                            <option>Inativo</option>
+                            <option value="">-</option>
+                            <option value="1">Ativo</option>
+                            <option value="0">Inativo</option>
                         </select>
                     </div>
 
@@ -70,11 +70,11 @@
             </td>
             <td class="text-center">
                 <a href="{{ route('curso.show', $curso->id) }}">
-                    <x-bx-detail width="30" />
+                    View
                 </a>
 
                 <a href="{{ route('curso.edit', $curso->id) }}">
-                    <x-jam-write width="30" />
+                    Editar
                 </a>
 
                 <form action="{{ route('curso.destroy', $curso->id) }}"
@@ -83,7 +83,7 @@
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-link p-0">
-                        <x-gmdi-delete width="30" />
+                        Deletar
                     </button>
                 </form>
             </td>
