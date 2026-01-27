@@ -3,15 +3,20 @@
 namespace App\Http\Controllers;
 use App\Models\Curso;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreCursoRequest;
+
 
 class CursoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(StoreCursoRequest $request)
     {
         //
+
+        $dados = $request->validated();
+        dd($dados);
         $cursos = Curso::paginate(5);
 
         return view('curso.index', ['cursos' => $cursos]);

@@ -12,21 +12,21 @@
         <!-- Filtros -->
         <div class="card mb-4">
             <div class="card-body">
-                <div class="row g-3 align-items-end">
+                <form method="get" action="{{ route('curso.index') }}" class="row g-3 align-items-end">
 
                     <div class="col-md-4">
                         <label class="form-label">Nome</label>
-                        <input type="text" class="form-control" placeholder="Nome do curso">
+                        <input name="nome" type="text" class="form-control" placeholder="Nome do curso">
                     </div>
 
                     <div class="col-md-4">
                         <label class="form-label">Descrição</label>
-                        <input type="text" class="form-control" placeholder="Descrição do curso">
+                        <input name="descricao" type="text" class="form-control" placeholder="Descrição do curso">
                     </div>
 
                     <div class="col-md-2">
                         <label class="form-label">Status</label>
-                        <select class="form-select">
+                        <select name="status" class="form-select">
                             <option>-</option>
                             <option>Ativo</option>
                             <option>Inativo</option>
@@ -34,11 +34,11 @@
                     </div>
 
                     <div class="col-md-2 d-flex gap-2">
-                        <button class="btn btn-primary w-100">Pesquisar</button>
+                        <button type="submit" class="btn btn-primary w-100">Pesquisar</button>
                         <button class="btn btn-danger w-100">Limpar</button>
                     </div>
 
-                </div>
+                </form>
             </div>
         </div>
 
