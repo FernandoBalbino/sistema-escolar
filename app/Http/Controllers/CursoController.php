@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Curso;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreCursoRequest;
+use App\Http\Requests\CursoRequest;
 
 
 class CursoController extends Controller
@@ -32,14 +32,29 @@ class CursoController extends Controller
     public function create()
     {
         //
+        return view('curso.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CursoRequest $request)
     {
         //
+        $cursoCadastrado = Curso::create([
+            'nome' => $request->nome,
+            'descricao' => $request->descricao,
+            'status' => $request->status,
+            'preco' => $request->preco,
+            'observacao' => $request->observacao,
+            'dt_cadastro' => now(),
+        ]);
+
+        if($cursoCadastrado){
+            return redirect()->route('curso.index')->with('success', 'Curso cadastrado com sucesso!');
+        } else {
+            return redirect()->back()->with('error', 'Erro ao cadastrar o curso. Por favor, tente novamente.');
+        }
     }
 
     /**

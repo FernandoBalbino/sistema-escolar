@@ -8,7 +8,18 @@
                 Cadastrar Curso
             </a>
         </div>
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
 
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+
+        @endif
         <!-- Filtros -->
         <div class="card mb-4">
             <div class="card-body">
@@ -16,20 +27,20 @@
 
                     <div class="col-md-4">
                         <label class="form-label">Nome</label>
-                        <input name="nome" type="text" class="form-control" placeholder="Nome do curso">
+                        <input name="nome" type="text" class="form-control" placeholder="Nome do curso" value="{{ request('nome') }}">
                     </div>
 
                     <div class="col-md-4">
                         <label class="form-label">Descrição</label>
-                        <input name="descricao" type="text" class="form-control" placeholder="Descrição do curso">
+                        <input name="descricao" type="text" class="form-control" placeholder="Descrição do curso" value="{{ request('descricao') }}">
                     </div>
 
                     <div class="col-md-2">
                         <label class="form-label">Status</label>
-                        <select name="status" class="form-select">
+                        <select name="status"  class="form-select">
                             <option value="">-</option>
-                            <option value="1">Ativo</option>
-                            <option value="0">Inativo</option>
+                            <option value="1" @selected(request('status') == '1')>Ativo</option>
+                            <option value="0" @selected(request('status') == '0')>Inativo</option>
                         </select>
                     </div>
 
@@ -50,6 +61,7 @@
                         <tr>
                             <th>Nome</th>
                             <th>Descrição</th>
+                            <th>Preço</th>
                             <th>Data de Cadastro</th>
                             <th>Status</th>
                             <th class="text-center">Ações</th>
@@ -60,6 +72,7 @@
         <tr>
             <td>{{ $curso->nome }}</td>
             <td>{{ $curso->descricao }}</td>
+            <td>R$ {{ number_format($curso->preco, 2, ',', '.') }}</td>
             <td>{{ \Carbon\Carbon::parse($curso->dt_cadastro)->format('d/m/Y') }}</td>
             <td>
                 @if ($curso->status)
